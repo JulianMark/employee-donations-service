@@ -4,7 +4,7 @@
 
 <mapper namespace="com.employee.donations.mapper.EmployeeStatusMapper">
 
-    <select id="obtainStatus" resultType="com.employee.donations.mapper.EmployeeStatusMapper">
+    <select id="obtainStatus" resultType="com.employee.donations.service.http.EmployeeStatusResponse">
 		SELECT TE.ID_CAMPAIGN idCampaign, C.NAME nameCampaign, C.ID_OSC idOSC, O.DESCRIPTION descriptionOSC
         FROM TEAM_EMPLOYEES TE
         JOIN CAMPAIGNS C ON C.ID = TE.ID_CAMPAIGN

@@ -1,8 +1,8 @@
 package com.employee.donations.service;
 
-import com.employee.Utils.Utils;
-import com.employee.mapper.EmployeeStatusMapper;
-import com.employee.service.http.EmployeeStatusResponse;
+import com.employee.donations.Utils.Utils;
+import com.employee.donations.mapper.EmployeeStatusMapper;
+import com.employee.donations.service.http.EmployeeStatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
