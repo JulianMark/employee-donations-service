@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.employee.donations.mapper.EmployeeStatusMapper">
+
+    <select id="obtainStatus" resultType="com.employee.donations.mapper.EmployeeStatusMapper">
+		SELECT TE.ID_CAMPAIGN idCampaign, C.NAME nameCampaign, C.ID_OSC idOSC, O.DESCRIPTION descriptionOSC
+        FROM TEAM_EMPLOYEES TE
+        JOIN CAMPAIGNS C ON C.ID = TE.ID_CAMPAIGN
+        JOIN OSC O ON O.ID = C.ID_OSC
+        WHERE 1 = 1
+        AND TE.ID_EMPLOYEE = #{idEmployee}
+        AND TE.FINAL_DATE IS NULL
+	</select>
+
+</mapper>
