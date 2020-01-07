@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.employee.donations.mapper.DonationMapper">
+
+    <insert id="addDonation">
+        INSERT INTO DONATIONS (AMOUNT,
+                               ID_TYPE_PAY,
+                               ID_EMPLOYEE_TEAM,
+                               ID_CAMPAIGN,
+                               DNI,
+                               NAME,
+                               LASTNAME,
+                               AGE,
+                               GENDER,
+                               CREATE_DATE)
+        VALUES (#{resquest.amount},
+                #{resquest.typePay},
+                #{resquest.idEmployee},
+                #{resquest.idCampaign},
+                #{resquest.dni},
+                #{resquest.name},
+                #{resquest.lastName},
+                #{resquest.age},
+                #{resquest.gender},
+                SYSDATE);
+    </insert>
+
+</mapper>

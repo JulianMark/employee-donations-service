@@ -7,10 +7,15 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class DonorsRequest {
+public class DonationRequest {
 
+    private Float amount;
+    private Integer typePay;
+    private Integer idEmployee;
+    private Integer idCampaign;
     private String dni;
     private String name;
     private String lastName;
     private Integer age;
+    private String gender;
 }
