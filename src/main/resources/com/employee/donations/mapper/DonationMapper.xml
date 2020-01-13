@@ -15,15 +15,15 @@
                                AGE,
                                GENDER,
                                CREATE_DATE)
-        VALUES (#{resquest.amount},
-                #{resquest.typePay},
-                #{resquest.idEmployee},
-                #{resquest.idCampaign},
-                #{resquest.dni},
-                #{resquest.name},
-                #{resquest.lastName},
-                #{resquest.age},
-                #{resquest.gender},
+        VALUES (#{request.amount},
+                #{request.payType},
+                #{request.idEmployee},
+                #{request.idCampaign},
+                #{request.dni},
+                #{request.name},
+                #{request.lastName},
+                #{request.age},
+                #{request.gender},
                 SYSDATE);
     </insert>
 

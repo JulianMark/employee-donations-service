@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface DonationMapper {
 
-    void addDonation (@Param("resquest")DonationRequest donationRequest);
+    void addDonation (@Param("request")DonationRequest donationRequest);
 }

@@ -59,7 +59,7 @@ public class DonationService {
             validateRequest(donationRequest);
             donationMapper.addDonation(donationRequest);
             LOGGER.info("Se ingreso correctamente la donacion");
-            return ResponseEntity.ok(new DonationResponse());
+            return ResponseEntity.ok(new DonationResponse((byte) 0, null));
         }catch (IllegalArgumentException iae){
             LOGGER.warn("Los parametros ingresados son invalidos: ",iae);
             return ResponseEntity.badRequest().body(new DonationResponse(iae.getMessage()));

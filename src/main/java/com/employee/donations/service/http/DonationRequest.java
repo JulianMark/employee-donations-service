@@ -10,7 +10,7 @@ import lombok.*;
 public class DonationRequest {
 
     private Float amount;
-    private Integer typePay;
+    private Integer payType;
     private Integer idEmployee;
     private Integer idCampaign;
     private String dni;
