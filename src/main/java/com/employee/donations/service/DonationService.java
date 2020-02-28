@@ -2,14 +2,24 @@ package com.employee.donations.service;
 
 import com.employee.donations.mapper.DonationMapper;
 import com.employee.donations.mapper.EmployeeStatusMapper;
+import com.employee.donations.mapper.PayTypeMapper;
+import com.employee.donations.model.PayType;
 import com.employee.donations.service.http.DonationRequest;
 import com.employee.donations.service.http.DonationResponse;
 import com.employee.donations.service.http.EmployeeStatusResponse;
+import com.employee.donations.service.http.PayTypesResponse;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import static com.employee.donations.Utils.Utils.validateIdNumber;
 import static com.employee.donations.Utils.Utils.validateRequest;
@@ -20,12 +30,16 @@ public class DonationService {
 
     private final EmployeeStatusMapper employeeStatusMapper;
     private final DonationMapper donationMapper;
+    private final PayTypeMapper payTypeMapper;
+    private final Function<List<PayType>, ResponseEntity<PayTypesResponse>> listPayTypesValidator;
 
     @Autowired
     public DonationService(EmployeeStatusMapper employeeStatusMapper,
-                           DonationMapper donationMapper) {
+                           DonationMapper donationMapper, PayTypeMapper payTypeMapper, Function<List<PayType>, ResponseEntity<PayTypesResponse>> listPayTypesValidator) {
         this.employeeStatusMapper = employeeStatusMapper;
         this.donationMapper = donationMapper;
+        this.payTypeMapper = payTypeMapper;
+        this.listPayTypesValidator = listPayTypesValidator;
     }
 
     @GetMapping(
@@ -51,6 +65,7 @@ public class DonationService {
         }
     }
 
+    @CrossOrigin(origins ="http://localhost:3000", maxAge = 3600 )
     @PostMapping(
             value = "employee/donation/add",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,6 +81,20 @@ public class DonationService {
         }catch (Exception ex) {
             LOGGER.error("Ocurrio un error al intentar ingresar la donacion");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new DonationResponse(ex.getMessage()));
+        }
+    }
+
+    @GetMapping(
+            value = "donations/paymentTypes",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PayTypesResponse> obtainPayTypesList () {
+        try {
+            return Optional.of(payTypeMapper.obtainPayTypesList())
+                    .map(listPayTypesValidator)
+                    .orElseThrow(()-> new RuntimeException("Something bad happened"));
+        }catch (Exception ex) {
+            LOGGER.error("An error occurred while trying to get pay types");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new PayTypesResponse(ex.getMessage()));
         }
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.employee.donations.mapper.PayTypeMapper">
+
+    <select id="obtainPayTypesList" resultType="com.employee.donations.model.PayType">
+		SELECT DISTINCT PT.ID, PT.DESCRIPTION
+        FROM PAY_TYPES PT
+	</select>
+
+</mapper>
