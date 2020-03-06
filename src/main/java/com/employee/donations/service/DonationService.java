@@ -54,14 +54,15 @@ public class DonationService {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT)
                         .body(new EmployeeStatusResponse("No se encuentra vinculado a ninguna campania"));
             }
-            LOGGER.info("Se obtuvo la campania para el empleado "+idEmployee);
+            LOGGER.info("The campaign for the employee{} was obtained"+idEmployee);
             return ResponseEntity.ok(employeeStatusResponse);
         }catch (IllegalArgumentException iae){
-            LOGGER.warn("Los parametros ingresados son invalidos: ",iae);
+            LOGGER.warn("The parameters entered are invalid: ",iae);
             return ResponseEntity.badRequest().body(new EmployeeStatusResponse(iae.getMessage()));
         }catch (Exception ex) {
-            LOGGER.error("Ocurrio un error al intentar obtener las OSC para el empleado con id: "+idEmployee);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new EmployeeStatusResponse(ex.getMessage()));
+            LOGGER.error("An error occurred while trying to get OSC for employee id {}"+idEmployee);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new EmployeeStatusResponse(ex.getMessage()));
         }
     }
 
@@ -73,17 +74,18 @@ public class DonationService {
         try{
             validateRequest(donationRequest);
             donationMapper.addDonation(donationRequest);
-            LOGGER.info("Se ingreso correctamente la donacion");
+            LOGGER.info("The donation was entered correctly");
             return ResponseEntity.ok(new DonationResponse((byte) 0, null));
         }catch (IllegalArgumentException iae){
-            LOGGER.warn("Los parametros ingresados son invalidos: ",iae);
+            LOGGER.warn("The parameters entered are invalid:  ",iae);
             return ResponseEntity.badRequest().body(new DonationResponse(iae.getMessage()));
         }catch (Exception ex) {
-            LOGGER.error("Ocurrio un error al intentar ingresar la donacion");
+            LOGGER.error("An error occurred while trying to add donation");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new DonationResponse(ex.getMessage()));
         }
     }
 
+    @CrossOrigin(origins ="http://localhost:3000", maxAge = 3600 )
     @GetMapping(
             value = "donations/paymentTypes",
             produces = MediaType.APPLICATION_JSON_VALUE)
